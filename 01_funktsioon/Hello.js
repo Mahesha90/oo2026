@@ -1,24 +1,28 @@
 var message = "Hello world";
 console.log(message);
-//Create variable for your name and another one for age. Then in the console print name.
-var firstname = "Mahesha";
+// Create variables for name and age, then print them
+var firstName = "Mahesha";
 var age = 15;
-console.log("My name is " + firstname + " my age is " + age);
+console.log("My name is " + firstName + " my age is " + age);
+// Ticket logic based on age
 if (age < 7) {
     console.log("Free");
 }
 else {
     console.log("Buy a ticket");
     if (age < 16) {
-        console.log("Child Chicket");
+        console.log("Child ticket");
     }
     else {
         console.log("Full ticket");
     }
 }
-var symbols = []; //empty array
+// Create an empty array
+var symbols = [];
+// Add one star for each year of age
 for (var nr = 0; nr < age; nr++) {
     symbols.push("*");
 }
+// Print the array and then a single line of stars
 console.log(symbols);
 console.log(symbols.join(""));

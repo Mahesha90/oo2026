@@ -1,83 +1,83 @@
-//Function 01
-function sayHello(){
-    return "Hello Word";
+// Function 01
+function sayHello(): string {
+    return "Hello World";
 }
 
 let message1 = sayHello();
 console.log(message1);
 
-//Function 02
-
-function multiply(a:number, b:number){
-    return a*b;
+// Function 02
+function multiply(a: number, b: number): number {
+    return a * b;
 }
 
-let result = multiply(3,4);
+let result = multiply(3, 4);
 console.log(result);
 
-//Function 03
-//Calculate BMI
+// Function 03
+// Calculate BMI
+function bodyMassIndex(cm: number, kg: number): number {
+    // Step 01: Convert cm to meters
+    let m: number = cm / 100;
 
-function bodyMassIndex(cm:number, kg:number):number {
-    //Step 01: Conver CM to M
-    let m: number = cm/100;
-    //Step 02: Retun BMI value using formula
-    return kg/(m * m);
-}
-//Input two numbers and print result using console.log
-console.log(bodyMassIndex(175,70));
-
-let weights:number[]=[80,90,100,110,115]
-
-for(let weight of weights){
-    console.log(bodyMassIndex(180,weight))
+    // Step 02: Return BMI value using the formula
+    return kg / (m * m);
 }
 
-//map runs the given function once for each value in the array.
-//For each weight, BMI is called.
-//The returned BMI values are collected into a new array.
-let bmivalue: number [] = weights.map(weight => bodyMassIndex(180, weight))
-console.log(bmivalue);
+// Input two numbers and print result
+console.log(bodyMassIndex(175, 70));
 
-//Function 04- But different function for BMI
-//Alternative formula for BMI
-function bodyMassIndex2 (cm:number, kg:number):number{
-    let m:number =cm/100;
+// Array of weights
+let weights: number[] = [80, 90, 100, 110, 115];
 
-    return 1.3*kg/Math.pow(m,2.5);
+// Calculate BMI using a loop
+for (let weight of weights) {
+    console.log(bodyMassIndex(180, weight));
 }
 
-let bmivalue2: number [] = weights.map(weight => bodyMassIndex2(180, weight))
-console.log(bmivalue2);
+// Use map to calculate BMI values
+let bmiValues: number[] = weights.map(weight => bodyMassIndex(180, weight));
+console.log(bmiValues);
 
-let results: number[][]=[];
+// Function 04
+// Alternative BMI formula
+function bodyMassIndex2(cm: number, kg: number): number {
+    let m: number = cm / 100;
+    return 1.3 * kg / Math.pow(m, 2.5);
+}
 
-for(let height=150; height<190; height+=2){
+// Calculate BMI using the alternative formula
+let bmiValues2: number[] = weights.map(weight => bodyMassIndex2(180, weight));
+console.log(bmiValues2);
+
+// Build a table of results
+let results: number[][] = [];
+
+for (let height = 150; height < 190; height += 2) {
     results.push([
         height,
-        bodyMassIndex(height,90),
-        bodyMassIndex2(height,90)
-    ])
+        bodyMassIndex(height, 90),
+        bodyMassIndex2(height, 90)
+    ]);
 }
 
 console.log(results);
 
-//Write a function to calculate the area of a circle
-//    // We store the value of pi (used in circle calculations)
-    //const pi: number = 3.1415;
+// Function 05
+// Calculate the area of a circle
+function circleArea(radius: number): number {
+    const pi: number = 3.1415;
 
-    // Here we calculate the area of the circle
-    // We multiply pi by the radius times the radius
-   // let area: number = pi * Math.pow(radius, 2);
-
-   function circleArea(radius:number): number{
-    const pi: number=3.1415;
+    // Area formula: π × r²
     let area: number = pi * Math.pow(radius, 2);
-    let roundArea: number = Math.round(area*100/100);
-    return roundArea;
-   }
 
-   let radius:number = 10;
-   let area:number =circleArea(radius);
+    // Round to 2 decimal places
+    let roundedArea: number = Math.round(area * 100) / 100;
 
-   console.log("area of the circle with radius " +radius+ "is " +area)
+    return roundedArea;
+}
+
+let radius: number = 10;
+let area: number = circleArea(radius);
+
+console.log("Area of the circle with radius " + radius + " is " + area);
