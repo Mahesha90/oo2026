@@ -17,6 +17,8 @@ class Resistor2{
     }
 
     draw(){
+
+        this.g.clearRect(this.startx, this.y-this.height/2, this.width, this.height);
         //=======Draw the LEFT wire============
         this.g.beginPath();
         this.g.moveTo(this.startx, this.y);

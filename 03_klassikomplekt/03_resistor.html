@@ -19,6 +19,12 @@
             document.getElementById("val1").innerText=r1.getR();
 
         }
+
+        function onRange1(input){
+            const v=input.valueAsNumber;
+            r1.setR(v);
+            document.getElementById("val1").innerText=v;
+        }
     </script>
 </head>
 <body onload="startPage()">
