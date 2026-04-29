@@ -45,6 +45,11 @@ var Book = /** @class */ (function (_super) {
     Book.prototype.getSummary = function () {
         return "[Book] ".concat(this.title, " (").concat(this.year, ")");
     };
+    //This method convert the Book object into a text line (for saving)
+    //Here each property is seperated by | so we can read it easily later
+    Book.prototype.toFillLine = function () {
+        return "[Book]|".concat(this.id, "|").concat(this.title, "|").concat(this.author, "|(").concat(this.year, ")|").concat(this.pages, "|").concat(this.ISBN);
+    };
     return Book;
 }(LibraryItem));
 //----------------------------DVD---------------------------------------------
@@ -60,9 +65,43 @@ var DVD = /** @class */ (function (_super) {
     DVD.prototype.getSummary = function () {
         return "[DVD] ".concat(this.title, " (").concat(this.year, ")");
     };
+    DVD.prototype.toFillLine = function () {
+        return "[DVD]|".concat(this.id, "|").concat(this.title, "|").concat(this.author, "|(").concat(this.year, ")|").concat(this.duration);
+    };
     return DVD;
 }(LibraryItem));
+//---------------------------------Library-------------------
+//Manage all the items
+var Library = /** @class */ (function () {
+    function Library() {
+        this.items = [];
+    } //starts with a empty list
+    //add a new item to the library
+    Library.prototype.addItem = function (item) {
+        this.items.push(item);
+    };
+    Library.prototype.getAll = function () {
+        return this.items;
+    };
+    Library.prototype.toText = function () {
+        //map is an array method, it takes each item and transform it
+        //i: each item in the array
+        //i.toFillLine converts object-string
+        return this.items.map(function (i) { return i.toFillLine(); }).join("\n");
+        //\n mean new line
+        // join("\n") : mean join everything with line breaks
+    };
+    return Library;
+}());
 var item1 = new LibraryItem("1", "Generic item", "unknown", 2020);
 console.log(item1);
 var book1 = new Book("2B", "Harry Potter", "J.K rowling", 1990, 300, "334445");
+var book2 = new Book("3B", "The hobbit", "J.R.R Tolkien", 1937, 300, "554445");
 console.log(book1);
+console.log(item1.getSummary());
+console.log(book1.getSummary());
+console.log(book1.toFillLine());
+var lib = new Library();
+lib.addItem(book1);
+lib.addItem(book2);
+console.log(lib.toText());

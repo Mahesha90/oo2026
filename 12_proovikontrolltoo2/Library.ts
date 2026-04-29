@@ -57,6 +57,10 @@ class DVD extends LibraryItem{
     getSummary(): string {
         return `[DVD] ${this.title} (${this.year})`;
     }
+
+    toFillLine():string{
+        return `[DVD]|${this.id}|${this.title}|${this.author}|(${this.year})|${this.duration}`;
+    }
 }
 
 //---------------------------------Library-------------------
@@ -69,7 +73,20 @@ class Library{
     //add a new item to the library
     addItem(item:LibraryItem):void{
     this.items.push(item);
-}
+    }
+
+    getAll():LibraryItem[]{
+        return this.items;
+    }
+
+    toText(): string{
+        //map is an array method, it takes each item and transform it
+        //i: each item in the array
+        //i.toFillLine converts object-string
+        return this.items.map((i:any) => i.toFillLine()).join("\n")
+        //\n mean new line
+        // join("\n") : mean join everything with line breaks
+    }
 }
 
 
@@ -77,4 +94,12 @@ class Library{
 const item1=new LibraryItem("1", "Generic item", "unknown", 2020);
 console.log(item1)
 const book1=new Book("2B", "Harry Potter", "J.K rowling", 1990, 300, "334445");
+const book2=new Book("3B", "The hobbit", "J.R.R Tolkien", 1937, 300, "554445");
 console.log(book1)
+console.log(item1.getSummary())
+console.log(book1.getSummary())
+console.log(book1.toFillLine())
+const lib=new Library();
+lib.addItem(book1);
+lib.addItem(book2);
+console.log(lib.toText())
