@@ -26,8 +26,8 @@
                         document.getElementById("id").value,
                         document.getElementById("title").value,
                         document.getElementById("author").value,
-                        document.getElementById("year").value,
-                        document.getElementById("pages").value,
+                        Number(document.getElementById("year").value),
+                        Number(document.getElementById("pages").value),
                         document.getElementById("ISBN").value,
                     );
                 } else {
@@ -35,8 +35,8 @@
                         document.getElementById("id").value,
                         document.getElementById("title").value,
                         document.getElementById("author").value,
-                        document.getElementById("year").value,
-                        document.getElementById("duration").value,
+                        Number(document.getElementById("year").value),
+                        Number(document.getElementById("duration").value),
                     )
                 }
                 library.addItem(item);
@@ -45,7 +45,19 @@
                 alert("Error adding item: " + e.message);
             }
         }
-        function showItems(){}
+        function showItems(){
+            const out=document.getElementById("output");
+            out.innerHTML="";
+            const items=library.getAll();
+            if (items.length === 0){out.innerText = "(no items)"; return;}
+            items.forEach(item => {
+                const div =document.createElement("div");
+                div.textContent=item.getSummary();
+                out.appendChild(div)
+            });
+            
+        }
+        
         function loadFile(){}
         function download(){}
         //Expose functions to HTML buttons
