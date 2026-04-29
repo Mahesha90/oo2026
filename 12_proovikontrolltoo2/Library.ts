@@ -59,6 +59,21 @@ class DVD extends LibraryItem{
     }
 }
 
+//---------------------------------Library-------------------
+//Manage all the items
+class Library{
+    items:LibraryItem[];
+
+    constructor(){this.items=[]} //starts with a empty list
+
+    //add a new item to the library
+    addItem(item:LibraryItem):void{
+    this.items.push(item);
+}
+}
+
+
+
 const item1=new LibraryItem("1", "Generic item", "unknown", 2020);
 console.log(item1)
 const book1=new Book("2B", "Harry Potter", "J.K rowling", 1990, 300, "334445");
