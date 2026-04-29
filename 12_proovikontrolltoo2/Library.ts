@@ -87,9 +87,38 @@ class Library{
         //\n mean new line
         // join("\n") : mean join everything with line breaks
     }
+
+    //Covert text to objects, because we need to read item details from text files
+    loadFromText(text: string): string[]{
+        const lines= text.split("\n");
+        const errors: string[]=[];
+        for (let line of lines){
+            try{
+                const parts = line.split("|");
+                if (parts[0] === "BOOK"){
+                    this.addItem(new Book(
+                        parts[1], parts[2],parts[3],
+                        Number(parts[4]), Number(parts[5]), parts[6]
+                    ));
+                } else if (parts[0] === "DVD"){
+                    this.addItem(new DVD(
+                        parts[1], parts[2], parts[3], Number(parts[4]), Number(parts[5])
+                    ));
+                }
+            } catch (e){
+                errors.push("Error" +line);
+            }
+        }
+        return errors;
+    }
 }
 
-
+export{
+    LibraryItem,
+    Book,
+    DVD,
+    Library
+}
 
 const item1=new LibraryItem("1", "Generic item", "unknown", 2020);
 console.log(item1)
