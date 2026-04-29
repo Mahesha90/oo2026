@@ -38,6 +38,11 @@ class Book extends LibraryItem{
     getSummary(): string {
         return `[Book] ${this.title} (${this.year})`;
     }
+    //This method convert the Book object into a text line (for saving)
+    //Here each property is seperated by | so we can read it easily later
+    toFillLine():string{
+        return `[Book]|${this.id}|${this.title}|${this.author}|(${this.year})|${this.pages}|${this.ISBN}`;
+    }
 }
 
 //----------------------------DVD---------------------------------------------
@@ -53,3 +58,8 @@ class DVD extends LibraryItem{
         return `[DVD] ${this.title} (${this.year})`;
     }
 }
+
+const item1=new LibraryItem("1", "Generic item", "unknown", 2020);
+console.log(item1)
+const book1=new Book("2B", "Harry Potter", "J.K rowling", 1990, 300, "334445");
+console.log(book1)
