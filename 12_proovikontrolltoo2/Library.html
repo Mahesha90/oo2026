@@ -8,10 +8,43 @@
         let library =null;
         let exports = {};
         function startPage(){
+            library = new Library();
+            showItems();
         }
         function updateForm(){
+            const type = document.getElementById("type").value;
+            document.getElementById("book-fields").style.display = type === "book"?"":"none";
+            document.getElementById("dvd-fields").style.display = type === "dvd"?"":"none";
+
         }
-        function addItem(){}
+        function addItem(){
+            const type = document.getElementById("type").value;
+            let item;
+            try{
+                if (type === "book"){
+                    item = new Book(
+                        document.getElementById("id").value,
+                        document.getElementById("title").value,
+                        document.getElementById("author").value,
+                        document.getElementById("year").value,
+                        document.getElementById("pages").value,
+                        document.getElementById("ISBN").value,
+                    );
+                } else {
+                    item = new DVD(
+                        document.getElementById("id").value,
+                        document.getElementById("title").value,
+                        document.getElementById("author").value,
+                        document.getElementById("year").value,
+                        document.getElementById("duration").value,
+                    )
+                }
+                library.addItem(item);
+                showItems()
+            } catch (e){
+                alert("Error adding item: " + e.message);
+            }
+        }
         function showItems(){}
         function loadFile(){}
         function download(){}
