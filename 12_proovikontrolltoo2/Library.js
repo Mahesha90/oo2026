@@ -1,3 +1,4 @@
+"use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -13,6 +14,8 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.Library = exports.DVD = exports.Book = exports.LibraryItem = void 0;
 var LibraryItem = /** @class */ (function () {
     function LibraryItem(id, title, author, year) {
         //Removes the whitespaces from both ends of the string
@@ -31,6 +34,7 @@ var LibraryItem = /** @class */ (function () {
     LibraryItem.prototype.getSummary = function () { return "[Item] ".concat(this.title); };
     return LibraryItem;
 }());
+exports.LibraryItem = LibraryItem;
 //-------------------------------Book------------------------------------
 var Book = /** @class */ (function (_super) {
     __extends(Book, _super);
@@ -52,6 +56,7 @@ var Book = /** @class */ (function (_super) {
     };
     return Book;
 }(LibraryItem));
+exports.Book = Book;
 //----------------------------DVD---------------------------------------------
 var DVD = /** @class */ (function (_super) {
     __extends(DVD, _super);
@@ -70,6 +75,7 @@ var DVD = /** @class */ (function (_super) {
     };
     return DVD;
 }(LibraryItem));
+exports.DVD = DVD;
 //---------------------------------Library-------------------
 //Manage all the items
 var Library = /** @class */ (function () {
@@ -91,8 +97,30 @@ var Library = /** @class */ (function () {
         //\n mean new line
         // join("\n") : mean join everything with line breaks
     };
+    //Covert text to objects, because we need to read item details from text files
+    Library.prototype.loadFromText = function (text) {
+        var lines = text.split("\n");
+        var errors = [];
+        for (var _i = 0, lines_1 = lines; _i < lines_1.length; _i++) {
+            var line = lines_1[_i];
+            try {
+                var parts = line.split("|");
+                if (parts[0] === "BOOK") {
+                    this.addItem(new Book(parts[1], parts[2], parts[3], Number(parts[4]), Number(parts[5]), parts[6]));
+                }
+                else if (parts[0] === "DVD") {
+                    this.addItem(new DVD(parts[1], parts[2], parts[3], Number(parts[4]), Number(parts[5])));
+                }
+            }
+            catch (e) {
+                errors.push("Error" + line);
+            }
+        }
+        return errors;
+    };
     return Library;
 }());
+exports.Library = Library;
 var item1 = new LibraryItem("1", "Generic item", "unknown", 2020);
 console.log(item1);
 var book1 = new Book("2B", "Harry Potter", "J.K rowling", 1990, 300, "334445");

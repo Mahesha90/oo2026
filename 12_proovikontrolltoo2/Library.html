@@ -58,8 +58,34 @@
             
         }
         
-        function loadFile(){}
-        function download(){}
+        function loadFile(){
+        const file = document.getElementById("fileInput").files[0];
+        // If no file selected → stop
+        if (!file) return;
+        // FileReader reads file content
+        const reader = new FileReader();
+        // After file is read
+        reader.onload = function(e) {
+            // Convert text → objects
+            library.loadFromText(e.target.result);
+            // Update display
+            showItems();
+        };
+        // Start reading file as text
+        reader.readAsText(file);}
+
+        function download(){
+        // Convert objects → text format
+        const blob = new Blob([library.toText()]);
+        // Create temporary URL for file
+        const url = URL.createObjectURL(blob);
+        // Create temporary link element
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "library.txt";
+        // Trigger download
+        a.click();}
+        
         //Expose functions to HTML buttons
         window.startPage=startPage;
         window.addItem=addItem;
