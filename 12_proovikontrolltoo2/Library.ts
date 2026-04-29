@@ -39,3 +39,17 @@ class Book extends LibraryItem{
         return `[Book] ${this.title} (${this.year})`;
     }
 }
+
+//----------------------------DVD---------------------------------------------
+class DVD extends LibraryItem{
+    duration: number;
+    constructor (id: string, title:string, director:string, year:number, duration:number){
+        super(id, title, director, year);
+        if(duration <=0) throw new Error("Duration must be positive");
+        this.duration=duration;
+    }
+
+    getSummary(): string {
+        return `[DVD] ${this.title} (${this.year})`;
+    }
+}
